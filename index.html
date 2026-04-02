@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring — Video Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #faf6ef;
+    --amber: #c97d2a;
+    --amber-light: #f0d4a0;
+    --amber-pale: #fdf3e0;
+    --green: #2a6048;
+    --border: #d4c4a0;
+    --muted: #7a6a50;
+    --card-shadow: #d4c4a0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 28px 40px 24px;
+    border-bottom: 4px solid var(--amber);
+  }
+  .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-start; gap: 18px; }
+  .header-icon { font-size: 2.2rem; line-height: 1; margin-top: 2px; }
+  .header h1 { font-family: 'Libre Baskerville', serif; font-size: 1.55rem; font-weight: 700; line-height: 1.2; }
+  .header p { font-size: 0.82rem; color: #b0a898; margin-top: 5px; font-style: italic; }
+  .header-meta { margin-top: 3px; display: flex; gap: 18px; }
+  .header-meta span { font-size: 0.75rem; color: #8a7a68; font-family: 'JetBrains Mono', monospace; }
+  .header-meta span strong { color: var(--amber); }
+
+  /* CHAPTER FILTERS */
+  .filter-bar { background: #fff; border-bottom: 1.5px solid var(--border); padding: 14px 40px; position: sticky; top: 0; z-index: 100; }
+  .filter-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .filter-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); white-space: nowrap; }
+  .filter-btn { padding: 5px 13px; border: 1.5px solid var(--border); border-radius: 99px; background: var(--cream); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+
+  /* MAIN CONTENT */
+  .content { max-width: 1200px; margin: 0 auto; padding: 36px 40px 64px; }
+
+  /* CHAPTER GROUPS */
+  .chapter-group { margin-bottom: 52px; }
+  .chapter-group.hidden { display: none; }
+  .chapter-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .chapter-heading h2 { font-family: 'Libre Baskerville', serif; font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+  .chapter-heading .ch-line { flex: 1; height: 1.5px; background: var(--border); }
+  .chapter-heading .ch-count { font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--muted); white-space: nowrap; }
+
+  /* VIDEO CARDS */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; }
+  .video-card { background: #fff; border: 1.5px solid var(--border); border-radius: 4px; overflow: hidden; box-shadow: 3px 3px 0 var(--card-shadow); display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s; }
+  .video-card:hover { box-shadow: 5px 5px 0 var(--amber-light); transform: translate(-1px, -1px); }
+  .card-visual { height: 158px; position: relative; overflow: hidden; flex-shrink: 0; }
+  .card-visual svg { width: 100%; height: 100%; display: block; }
+  .card-num { position: absolute; top: 10px; left: 12px; font-family: 'Libre Baskerville', serif; font-size: .72rem; color: #ffffff40; font-style: italic; pointer-events: none; z-index: 2; }
+  .card-topic-badge { position: absolute; bottom: 10px; right: 11px; background: rgba(0,0,0,.45); backdrop-filter: blur(4px); border-radius: 2px; padding: 3px 8px; font-size: 0.63rem; font-family: 'JetBrains Mono', monospace; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; z-index: 2; }
+  .card-body { padding: 15px 17px 18px; flex: 1; display: flex; flex-direction: column; gap: 9px; }
+  .card-title a { font-family: 'Libre Baskerville', serif; font-size: .92rem; font-weight: 700; color: var(--ink); text-decoration: none; line-height: 1.35; display: block; }
+  .card-title a:hover { color: var(--amber); text-decoration: underline; }
+  .card-desc { font-size: .79rem; color: var(--muted); line-height: 1.65; flex: 1; }
+  .watch-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; font-weight: 700; color: var(--green); text-decoration: none; letter-spacing: .02em; margin-top: 2px; }
+  .watch-link:hover { color: var(--amber); }
+  .watch-link svg { width: 13px; height: 13px; }
+
+  /* FOOTER */
+  .footer { background: var(--ink); color: #7a6a50; text-align: center; padding: 22px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; border-top: 3px solid var(--amber); }
+  .footer strong { color: var(--amber); }
+
+  @media (max-width: 640px) {
+    .header { padding: 20px; }
+    .filter-bar { padding: 12px 16px; }
+    .content { padding: 24px 16px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-icon">📐</div>
+    <div>
+      <h1>Math Tutoring — Video Study Guide</h1>
+      <div class="header-meta">
+        <span><strong>48</strong> videos</span>
+        <span><strong>15</strong> chapters</span>
+        <span>Chapters 1 – 15</span>
+      </div>
+      <p>Click any video title to watch it. Use the filters to jump to a chapter.</p>
+    </div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-label">Jump to:</span>
+    <button class="filter-btn active" onclick="filterChapter('all', this)">All</button>
+    <button class="filter-btn" onclick="filterChapter('ch1', this)">Ch. 1</button>
+    <button class="filter-btn" onclick="filterChapter('ch2', this)">Ch. 2</button>
+    <button class="filter-btn" onclick="filterChapter('ch3', this)">Ch. 3</button>
+    <button class="filter-btn" onclick="filterChapter('ch4', this)">Ch. 4</button>
+    <button class="filter-btn" onclick="filterChapter('ch5', this)">Ch. 5</button>
+    <button class="filter-btn" onclick="filterChapter('ch6', this)">Ch. 6</button>
+    <button class="filter-btn" onclick="filterChapter('ch7', this)">Ch. 7</button>
+    <button class="filter-btn" onclick="filterChapter('ch8', this)">Ch. 8</button>
+    <button class="filter-btn" onclick="filterChapter('ch9', this)">Ch. 9</button>
+    <button class="filter-btn" onclick="filterChapter('ch10', this)">Ch. 10</button>
+    <button class="filter-btn" onclick="filterChapter('ch11', this)">Ch. 11</button>
+    <button class="filter-btn" onclick="filterChapter('ch12', this)">Ch. 12</button>
+    <button class="filter-btn" onclick="filterChapter('ch13', this)">Ch. 13</button>
+    <button class="filter-btn" onclick="filterChapter('ch14', this)">Ch. 14</button>
+    <button class="filter-btn" onclick="filterChapter('ch15', this)">Ch. 15</button>
+    <button class="filter-btn" onclick="filterChapter('misc', this)">Other</button>
+  </div>
+</div>
+
+<div class="content" id="mainContent">
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 1 -->
+<div class="chapter-group" id="ch1">
+  <div class="chapter-heading">
+    <h2>Chapter 1 — Factors &amp; Multiples</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">3 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#1</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid1" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid1)"/>
+<text x="145" y="22" font-size="12" fill="#1a1208" font-family="serif" font-weight="bold" text-anchor="middle">Find the GCF of 12 and 18</text>
+<!-- Left tree: 12, root at x=95 -->
+<text x="95" y="42" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">12</text>
+<line x1="85" y1="46" x2="68" y2="64" stroke="#1a1208" stroke-width="1.2"/>
+<line x1="105" y1="46" x2="122" y2="64" stroke="#1a1208" stroke-width="1.2"/>
+<text x="68" y="76" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="68" cy="72" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<text x="122" y="76" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">6</text>
+<line x1="112" y1="80" x2="98" y2="96" stroke="#1a1208" stroke-width="1.2"/>
+<line x1="132" y1="80" x2="146" y2="96" stroke="#1a1208" stroke-width="1.2"/>
+<text x="98" y="108" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="98" cy="104" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<text x="146" y="108" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<circle cx="146" cy="104" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<!-- Right tree: 18, root at x=183 -->
+<text x="183" y="42" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">18</text>
+<line x1="173" y1="46" x2="158" y2="64" stroke="#1a1208" stroke-width="1.2"/>
+<line x1="193" y1="46" x2="210" y2="64" stroke="#1a1208" stroke-width="1.2"/>
+<text x="158" y="76" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="158" cy="72" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<text x="210" y="76" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">9</text>
+<line x1="200" y1="80" x2="188" y2="96" stroke="#1a1208" stroke-width="1.2"/>
+<line x1="220" y1="80" x2="232" y2="96" stroke="#1a1208" stroke-width="1.2"/>
+<text x="188" y="108" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<circle cx="188" cy="104" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<text x="232" y="108" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<circle cx="232" cy="104" r="10" fill="none" stroke="#c9382a" stroke-width="1.2"/>
+<text x="145" y="140" font-size="13" fill="#2a6048" font-family="serif" font-weight="bold" text-anchor="middle">GCF = 2 × 3 = 6</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=m1mU0C_LUXk" target="_blank">Chapter 1 — Greatest Common Factor (GCF)</a></div>
+        <div class="card-desc">This video teaches you how to find the largest number that divides evenly into two or more numbers. After watching, you'll be able to quickly identify the GCF of any pair of numbers — a skill you'll use constantly when simplifying fractions and factoring expressions.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=m1mU0C_LUXk" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#2</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid2" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid2)"/>
+<text x="145" y="22" font-size="12" fill="#1a1208" font-family="serif" font-weight="bold" text-anchor="middle">Find the LCM of 16, 24, 52</text>
+<!-- Factor tree for 16 at x=72 -->
+<text x="72" y="48" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">16</text>
+<line x1="64" y1="52" x2="52" y2="64" stroke="#1a1208" stroke-width="1"/>
+<line x1="80" y1="52" x2="92" y2="64" stroke="#1a1208" stroke-width="1"/>
+<text x="52" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="52" cy="71" r="8" fill="none" stroke="#c9382a" stroke-width="1"/>
+<text x="92" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">8</text>
+<line x1="84" y1="79" x2="76" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<line x1="100" y1="79" x2="108" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<text x="76" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="76" cy="97" r="7" fill="none" stroke="#c9382a" stroke-width="1"/>
+<text x="108" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">4</text>
+<!-- Factor tree for 24 at x=145 -->
+<text x="145" y="48" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">24</text>
+<line x1="137" y1="52" x2="125" y2="64" stroke="#1a1208" stroke-width="1"/>
+<line x1="153" y1="52" x2="165" y2="64" stroke="#1a1208" stroke-width="1"/>
+<text x="125" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">4</text>
+<text x="165" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">6</text>
+<line x1="157" y1="79" x2="149" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<line x1="173" y1="79" x2="181" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<text x="149" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="149" cy="97" r="7" fill="none" stroke="#c9382a" stroke-width="1"/>
+<text x="181" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<circle cx="181" cy="97" r="7" fill="none" stroke="#c9382a" stroke-width="1"/>
+<!-- Factor tree for 52 at x=218, showing 2×26 then 2×13 -->
+<text x="218" y="48" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">52</text>
+<line x1="210" y1="52" x2="198" y2="64" stroke="#1a1208" stroke-width="1"/>
+<line x1="226" y1="52" x2="238" y2="64" stroke="#1a1208" stroke-width="1"/>
+<text x="198" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="198" cy="71" r="8" fill="none" stroke="#c9382a" stroke-width="1"/>
+<text x="238" y="75" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">26</text>
+<line x1="230" y1="79" x2="222" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<line x1="246" y1="79" x2="254" y2="90" stroke="#1a1208" stroke-width=".8"/>
+<text x="222" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<circle cx="222" cy="97" r="7" fill="none" stroke="#c9382a" stroke-width="1"/>
+<text x="254" y="101" font-size="10" fill="#1a1208" font-family="serif" text-anchor="middle">13</text>
+<circle cx="254" cy="97" r="7" fill="none" stroke="#c9382a" stroke-width="1"/>
+<!-- LCM result listed out -->
+<text x="145" y="128" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">2 × 2 × 2 × 2 × 3 × 13</text>
+<text x="145" y="148" font-size="13" fill="#2a6048" font-family="serif" font-weight="bold" text-anchor="middle">LCM = 624</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=DTigtpSmhoI" target="_blank">Chapter 1 — Least Common Multiple (LCM) + Simplifying with LCM</a></div>
+        <div class="card-desc">This video covers how to find the smallest number that two or more numbers divide into evenly, and then how to use that to add and simplify fractions. You'll be able to add fractions with different denominators and simplify expressions by finding the right common ground between numbers.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=DTigtpSmhoI" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#3</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid3" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid3)"/>
+<text x="145" y="18" font-size="12" fill="#1a1208" font-family="serif" font-weight="bold" text-anchor="middle">All Problem Types</text>
+<!-- Blue rules, small -->
+<text x="100" y="34" font-size="10" fill="#3b82f6" font-family="serif" text-anchor="middle">x⁰ = 1</text>
+<text x="190" y="34" font-size="10" fill="#3b82f6" font-family="serif" text-anchor="middle">x¹ = x</text>
+<!-- Problem type 1: fraction with exponents (textbook style) -->
+<text x="145" y="55" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">x⁵</text>
+<line x1="125" y1="60" x2="165" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+<text x="145" y="76" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">x³</text>
+<text x="145" y="89" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<!-- Problem type 2: multiplication with exponents -->
+<text x="145" y="107" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">3⁴ · 3⁸</text>
+<text x="145" y="120" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<!-- Problem type 3: simplify expression -->
+<text x="145" y="138" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">12A² − 6AB</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=WfZUgfqouxU" target="_blank">Chapter 1 — All Problem Types</a></div>
+        <div class="card-desc">This video walks through all the core problem types from Chapter 1, including GCF and LCM in real contexts. After watching, you'll feel confident tackling any Chapter 1 problem that appears on a test or homework assignment.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=WfZUgfqouxU" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 2 -->
+<div class="chapter-group" id="ch2">
+  <div class="chapter-heading">
+    <h2>Chapter 2 — Simplifying with GCF</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">2 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#4</span>
+        <span class="card-topic-badge" style="color:#7ec8e3">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid4" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid4)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Simplify with GCF</text>
+<text x="145" y="62" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">75A²Y − 50AX</text>
+<line x1="70" y1="70" x2="220" y2="70" stroke="#1a1208" stroke-width="1.5"/>
+<text x="145" y="90" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">5AX</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">factor out GCF from numerator</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=RNkTP4mPU0I" target="_blank">Chapter 2 — Use GCF to Simplify the Expression</a></div>
+        <div class="card-desc">This video shows how to factor out the greatest common factor from algebraic expressions to make them simpler. You'll be able to look at an expression like 6x² + 9x and instantly rewrite it in a cleaner factored form.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=RNkTP4mPU0I" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#5</span>
+        <span class="card-topic-badge" style="color:#7ec8e3">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid5" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid5)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Adding Algebraic Fractions</text>
+<text x="95" y="60" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">3Y</text>
+<line x1="60" y1="66" x2="130" y2="66" stroke="#1a1208" stroke-width="1.5"/>
+<text x="95" y="84" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">Y − 1</text>
+<text x="150" y="72" font-size="18" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<text x="205" y="60" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">2X</text>
+<line x1="170" y1="66" x2="240" y2="66" stroke="#1a1208" stroke-width="1.5"/>
+<text x="205" y="84" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">Y + 1</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">common denominator method</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=OebnNiiQiyE" target="_blank">Chapter 2 — All Problem Types</a></div>
+        <div class="card-desc">This video covers all the different types of simplification problems in Chapter 2, bringing together GCF with a variety of algebraic expressions. You'll be prepared to handle any Chapter 2 question confidently, from simple to multi-step problems.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=OebnNiiQiyE" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 3 -->
+<div class="chapter-group" id="ch3">
+  <div class="chapter-heading">
+    <h2>Chapter 3 — Scientific Notation</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">3 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#6</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid6" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid6)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Convert to Scientific Notation</text>
+<text x="145" y="65" font-size="24" fill="#1a1208" font-family="serif" text-anchor="middle">45,000</text>
+<text x="145" y="100" font-size="24" fill="#1a1208" font-family="serif" text-anchor="middle">.00345</text>
+<text x="145" y="140" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">move the decimal point</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=SQgRtfi6KQ4" target="_blank">Chapter 3 — Convert to Scientific Notation</a></div>
+        <div class="card-desc">This video explains how to rewrite very large or very small numbers in scientific notation using powers of 10. You'll be able to convert any number — no matter how many zeros it has — into a clean, compact scientific notation form.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=SQgRtfi6KQ4" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#7</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid7" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid7)"/>
+<text x="145" y="26" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Multiply Scientific Notation</text>
+<text x="145" y="75" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(4.5×10⁶)(3.2×10³)</text>
+<text x="145" y="100" font-size="18" fill="#888" font-family="serif" text-anchor="middle">= ?</text>
+<text x="145" y="140" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">multiply coefficients, add exponents</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=vVjsNU7U2x4" target="_blank">Chapter 3 — Multiply &amp; Divide Numbers in Scientific Notation</a></div>
+        <div class="card-desc">This video covers the rules for multiplying and dividing numbers that are already written in scientific notation. You'll be able to handle problems like (3×10⁴) × (2×10³) quickly and correctly without a calculator.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=vVjsNU7U2x4" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#8</span>
+        <span class="card-topic-badge" style="color:#e2b96f">Arithmetic</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid8" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid8)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Scientific Notation</text>
+<text x="145" y="62" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">(.000012)(18)</text>
+<line x1="65" y1="70" x2="225" y2="70" stroke="#1a1208" stroke-width="1.5"/>
+<text x="145" y="90" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">.0000054</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">convert, compute, simplify</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=wLxsGKMdUzU" target="_blank">Chapter 3 — Another Example: Scientific Notation Problems</a></div>
+        <div class="card-desc">This video works through additional scientific notation multiplication and division examples to reinforce the rules. After watching, you'll feel confident solving even the trickier variations of these problems on your own.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=wLxsGKMdUzU" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 4 -->
+<div class="chapter-group" id="ch4">
+  <div class="chapter-heading">
+    <h2>Chapter 4 — Radicals</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">6 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#9</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid9" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid9)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Simplify Radicals</text>
+<text x="100" y="70" font-size="24" fill="#1a1208" font-family="serif" text-anchor="middle">√200</text>
+<text x="200" y="70" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">√(84x⁴y⁵)</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">find perfect square factors</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=AZedwu9wFkk" target="_blank">Simplify Complex or Large Radicals</a></div>
+        <div class="card-desc">This video teaches how to break down square roots into their simplest form by finding perfect square factors. You'll be able to simplify expressions like √50 or √72 into neat forms like 5√2 or 6√2.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=AZedwu9wFkk" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#10</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid10" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid10)"/>
+<text x="145" y="26" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Rationalize the Denominator</text>
+<text x="145" y="66" font-size="22" fill="#1a1208" font-family="serif" text-anchor="middle">5</text>
+<line x1="110" y1="72" x2="180" y2="72" stroke="#1a1208" stroke-width="1.5"/>
+<text x="145" y="95" font-size="22" fill="#1a1208" font-family="serif" text-anchor="middle">√13</text>
+<text x="145" y="135" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">multiply by √13/√13</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=v1gnhSQvVHY" target="_blank">Chapter 4 — Radicals in Denominator</a></div>
+        <div class="card-desc">This video explains the technique of rationalizing the denominator — removing a square root from the bottom of a fraction. You'll learn to rewrite fractions like 1/√3 into an equivalent form with no radicals in the denominator.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=v1gnhSQvVHY" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#11</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid11" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid11)"/>
+<text x="145" y="20" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">Rationalize the Denominator</text>
+<!-- 5/√13 -->
+<text x="52" y="52" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">5</text>
+<line x1="32" y1="58" x2="72" y2="58" stroke="#1a1208" stroke-width="1.3"/>
+<text x="52" y="76" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">√13</text>
+<!-- × -->
+<text x="92" y="66" font-size="16" fill="#888" font-family="serif" text-anchor="middle">×</text>
+<!-- √13/√13 -->
+<text x="128" y="52" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">√13</text>
+<line x1="108" y1="58" x2="148" y2="58" stroke="#1a1208" stroke-width="1.3"/>
+<text x="128" y="76" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">√13</text>
+<!-- = -->
+<text x="170" y="66" font-size="16" fill="#888" font-family="serif" text-anchor="middle">=</text>
+<!-- 5√13/13 -->
+<text x="218" y="52" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">5√13</text>
+<line x1="190" y1="58" x2="246" y2="58" stroke="#1a1208" stroke-width="1.3"/>
+<text x="218" y="76" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">13</text>
+<text x="145" y="108" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">multiply by a form of 1</text>
+<text x="120" y="140" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">√13</text>
+<text x="140" y="140" font-size="9" fill="#888" font-family="serif" text-anchor="middle">/</text>
+<text x="160" y="140" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">√13 = 1</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=mTwBuMt1u1w" target="_blank">Chapter 4 — Radical in Denominator</a></div>
+        <div class="card-desc">This video builds on rationalization, covering cases where the denominator contains a binomial with a radical (like 1 + √5). You'll learn to use conjugates to clear the radical and simplify the entire fraction.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=mTwBuMt1u1w" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#12</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid12" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid12)"/>
+<text x="145" y="20" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">Adding Fractions with Radicals</text>
+<!-- 2/sqrt16 -->
+<text x="65" y="50" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<line x1="42" y1="56" x2="88" y2="56" stroke="#1a1208" stroke-width="1.3"/>
+<text x="65" y="72" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">√16</text>
+<!-- + -->
+<text x="115" y="62" font-size="14" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<!-- 4/sqrt75 -->
+<text x="160" y="50" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">4</text>
+<line x1="137" y1="56" x2="183" y2="56" stroke="#1a1208" stroke-width="1.3"/>
+<text x="160" y="72" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">√75</text>
+<!-- Rule of 4 steps on right -->
+<text x="248" y="38" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">1. Simplify</text>
+<text x="248" y="50" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">   radicals</text>
+<text x="248" y="66" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">2. Common</text>
+<text x="248" y="78" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">   denom</text>
+<text x="248" y="94" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">3. Combine</text>
+<text x="248" y="110" font-size="9" fill="#2a6048" font-family="serif" text-anchor="middle">4. Simplify</text>
+<text x="120" y="110" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">Rule of 4</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=humrqTBo7B8" target="_blank">Chapter 4 — Adding &amp; Subtracting Fractions with Radicals / Distributing Radicals</a></div>
+        <div class="card-desc">This video covers how to add and subtract radical expressions and how to distribute a radical across terms in parentheses. You'll be able to combine like radical terms and expand expressions involving square roots.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=humrqTBo7B8" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#13</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid13" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid13)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Radicals with Negatives</text>
+<!-- −8/√A -->
+<text x="80" y="60" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">−8</text>
+<line x1="50" y1="66" x2="110" y2="66" stroke="#1a1208" stroke-width="1.3"/>
+<text x="80" y="84" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">√A</text>
+<!-- + -->
+<text x="135" y="72" font-size="16" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<!-- (−A)/√AB -->
+<text x="195" y="60" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">−A</text>
+<line x1="155" y1="66" x2="235" y2="66" stroke="#1a1208" stroke-width="1.3"/>
+<text x="195" y="84" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">√AB</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">rationalize each denominator</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=aIzvVj0QAsI" target="_blank">Chapter 4 — Adding Fractions with Radicals in Denominator (with Negatives)</a></div>
+        <div class="card-desc">This video handles the trickier case of adding fractions that have square roots in the denominator and negative numbers in the numerator. You'll be able to rationalize both fractions, find the common denominator, and combine everything into a single simplified answer.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=aIzvVj0QAsI" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual">
+        <span class="card-num">#14</span>
+        <span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid14" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid14)"/>
+<text x="145" y="26" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Solve for X</text>
+<text x="145" y="75" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">10⅔X + 3½ = 1⅛</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">convert mixed numbers, isolate x</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=JfFo2fKXI7A" target="_blank">Solve for X, with Fractions</a></div>
+        <div class="card-desc">This video focuses on solving equations where the variable x appears inside fractions, requiring cross-multiplication and careful algebra. You'll be able to isolate x in equations with fractions on one or both sides.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=JfFo2fKXI7A" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch Video
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 5 -->
+<div class="chapter-group" id="ch5">
+  <div class="chapter-heading">
+    <h2>Chapter 5 — Polynomials &amp; Factoring</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">10 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#15</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid15" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid15)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Factor</text>
+<text x="145" y="52" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">x² + 7x + 12</text>
+<text x="145" y="66" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="84" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">x² + x − 6</text>
+<text x="145" y="98" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="116" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">x² − 16</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=zxgMef9nwGo" target="_blank">Chapter 5 — Factoring Trinomials and Binomials</a></div>
+        <div class="card-desc">This video teaches how to factor trinomials (three-term polynomials) and binomials (two-term polynomials) by finding their factor pairs. You'll be able to rewrite expressions like x² − 5x + 6 as (x − 2)(x − 3) and recognize common factoring patterns.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=zxgMef9nwGo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#16</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid16" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid16)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Factor with Coefficients</text>
+<text x="145" y="48" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">3x² + 17x + 10</text>
+<text x="145" y="62" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="80" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">x³ + 6x² + 9x</text>
+<text x="145" y="94" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="112" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">6x² − 2x − 4</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=GF7Ko4jCgic" target="_blank">Chapter 5 — Factoring Polynomials with Coefficients</a></div>
+        <div class="card-desc">This video tackles trinomials where the leading coefficient isn't 1 — the trickier cases like 2x² + 7x + 3. After watching, you'll know how to use the AC method or trial-and-error to factor these expressions correctly.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=GF7Ko4jCgic" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#17</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid17" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid17)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle" font-style="italic">find GCF first</text>
+<text x="145" y="60" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">2x² + 12x + 16</text>
+<text x="145" y="76" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="96" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x³ + 6x² + 9x</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=1o7jJCIetqs" target="_blank">Chapter 5 — Find GCF Before Factoring Polynomial</a></div>
+        <div class="card-desc">This video shows the important first step of pulling out the GCF before you attempt to factor a polynomial — making the rest of the problem much easier. You'll learn to recognize when a GCF can be factored out and do it correctly before proceeding.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=1o7jJCIetqs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#18</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid18" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid18)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Repeated Factoring</text>
+<text x="145" y="62" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">A⁴ − 21</text>
+<text x="145" y="78" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="100" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x⁴ − 17x² + 16</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=HebUASufYgM" target="_blank">Chapter 5 — Repeated Factoring</a></div>
+        <div class="card-desc">This video covers problems where you need to factor a polynomial more than once — the result of one factoring step can itself be factored further. You'll be able to fully factor expressions like x⁴ − 16 all the way down to their simplest form.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=HebUASufYgM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#19</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid19" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid19)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Combining Fractions — Rule of Four</text>
+<!-- 2/(x-1) -->
+<text x="52" y="56" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<line x1="25" y1="62" x2="80" y2="62" stroke="#1a1208" stroke-width="1.2"/>
+<text x="52" y="78" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">x − 1</text>
+<!-- + -->
+<text x="100" y="68" font-size="14" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<!-- 6/(x+2) -->
+<text x="140" y="56" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">6</text>
+<line x1="113" y1="62" x2="168" y2="62" stroke="#1a1208" stroke-width="1.2"/>
+<text x="140" y="78" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">x + 2</text>
+<!-- + -->
+<text x="188" y="68" font-size="14" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<!-- 3/(x²+x+2) -->
+<text x="236" y="56" font-size="15" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<line x1="200" y1="62" x2="272" y2="62" stroke="#1a1208" stroke-width="1.2"/>
+<text x="236" y="78" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">x²+x+2</text>
+<text x="145" y="110" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">1. common denom  2. expand  3. combine  4. simplify</text>
+<text x="145" y="140" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Rule of Four</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=TC2ygpd1Dig" target="_blank">Chapter 5 — Combining Fractions with Polynomials (Rule of Four)</a></div>
+        <div class="card-desc">This video teaches the "Rule of Four" method for combining fractions that have polynomial denominators. You'll be able to add and subtract rational expressions with different polynomial denominators by finding the correct LCD.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=TC2ygpd1Dig" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#20</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid20" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid20)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Complex Fractions</text>
+<!-- Outer numerator: 2/x centered -->
+<text x="145" y="48" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<line x1="131" y1="52" x2="159" y2="52" stroke="#1a1208" stroke-width="1"/>
+<text x="145" y="66" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">x</text>
+<!-- Big fraction bar — only slightly wider than bottom fraction -->
+<line x1="100" y1="76" x2="190" y2="76" stroke="#1a1208" stroke-width="2.5"/>
+<!-- Outer denominator: (x+5)/4x -->
+<text x="145" y="92" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">x + 5</text>
+<line x1="111" y1="98" x2="179" y2="98" stroke="#1a1208" stroke-width="1"/>
+<text x="145" y="114" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">4x</text>
+<text x="145" y="145" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">flip and multiply</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=-mLdqkhIx9k" target="_blank">Chapter 5 — Simplify Fractions with Fractions in the Denominator &amp; Numerator</a></div>
+        <div class="card-desc">This video covers "complex fractions" — fractions that have fractions inside them — and how to simplify them into a single clean expression. You'll be able to handle problems where both the top and bottom of a fraction are themselves fractions.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=-mLdqkhIx9k" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#21</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid21" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid21)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Solve by Factoring</text>
+<text x="145" y="78" font-size="24" fill="#1a1208" font-family="serif" text-anchor="middle">2x² − 8x − 14 = 10</text>
+<text x="145" y="130" font-size="14" fill="#2a6048" font-family="serif" text-anchor="middle">(x + ?)(x + ?) = 0</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=WHJ3_tuAVoo" target="_blank">Chapter 5 — Solve for X with Polynomials</a></div>
+        <div class="card-desc">This video connects factoring to solving — once you factor a polynomial, you can find the values of x that make it equal zero. You'll learn to solve polynomial equations by factoring and applying the zero-product property.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=WHJ3_tuAVoo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#22</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid22" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid22)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Solve by Factoring</text>
+<text x="145" y="78" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">2x² − 8x − 14 = 10</text>
+<text x="145" y="130" font-size="14" fill="#2a6048" font-family="serif" text-anchor="middle">(x + ?)(x + ?) = 0</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=SOSy-KRa83s" target="_blank">Chapter 5 — Set to Zero Polynomial (a)</a></div>
+        <div class="card-desc">This video shows how to rearrange a polynomial equation so that one side equals zero, then solve by factoring. You'll be able to solve polynomial equations that aren't already set up in the standard form.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=SOSy-KRa83s" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#23</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid23" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid23)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Solve by Factoring</text>
+<text x="145" y="78" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">2x⁶ − 50x⁴ + 50x² = 2x⁴</text>
+<text x="145" y="130" font-size="14" fill="#2a6048" font-family="serif" text-anchor="middle">(x + ?)(x + ?) = 0</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Pa_8SVI4eJY" target="_blank">Chapter 5 — Set to Zero Polynomial (b)</a></div>
+        <div class="card-desc">This is a follow-up with a more complex variation of setting a polynomial equation to zero, including cases where you need to expand and simplify before factoring. You'll practice the full multi-step process of rearranging, factoring, and solving.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Pa_8SVI4eJY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#24</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid24" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid24)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Multiply Fractions with Binomials</text>
+<text x="145" y="58" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">(1+2√3)(10−3√5)</text>
+<line x1="70" y1="68" x2="220" y2="68" stroke="#1a1208" stroke-width="1.5"/>
+<text x="145" y="88" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">6</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">FOIL the numerator</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Qb86dN_6b48" target="_blank">Review — Multiplying Fractions with Binomials in the Numerator</a></div>
+        <div class="card-desc">This review video focuses on multiplying fractions where the numerators and denominators are binomial expressions, then canceling common factors. You'll be able to multiply rational expressions and simplify the result by factoring and canceling.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Qb86dN_6b48" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 6 -->
+<div class="chapter-group" id="ch6">
+  <div class="chapter-heading">
+    <h2>Chapter 6 — Exponents (Fractional &amp; Layered)</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">4 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#25</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid25" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid25)"/>
+<text x="145" y="22" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Layered Exponents</text>
+<text x="145" y="40" font-size="11" fill="#3b82f6" font-family="serif" text-anchor="middle">(xᵃ)ᵇ = xᵃ·ᵇ</text>
+<text x="145" y="66" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(16½)³</text>
+<text x="145" y="82" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<text x="145" y="104" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(x¼)³⁄₂</text>
+<text x="145" y="120" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<text x="145" y="142" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(x⁴ᴮ)¼</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=o7M0VCxSraQ" target="_blank">Chapter 6 — Layered and Fractional Exponents</a></div>
+        <div class="card-desc">This video explains what fractional exponents mean (x^(1/2) = √x, x^(3/2) = x·√x) and how to work with layered (nested) exponent expressions. After watching, you'll be able to convert between radical and exponent notation and simplify complex exponent expressions.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=o7M0VCxSraQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#26</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid26" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid26)"/>
+<text x="145" y="22" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Negatives in Exponents</text>
+<text x="145" y="40" font-size="11" fill="#3b82f6" font-family="serif" text-anchor="middle">(xᵃ)ᵇ = xᵃ·ᵇ</text>
+<text x="145" y="68" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">[(−4)²]³⁄₄</text>
+<text x="145" y="84" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<text x="145" y="108" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(3⁻¹)½</text>
+<text x="145" y="124" font-size="10" fill="#2a6048" font-family="serif" font-style="italic" text-anchor="middle">or</text>
+<text x="145" y="146" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(½)³</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=cYZjBt8qVOI" target="_blank">Chapter 6 — Layered &amp; Fractional Exponents with Negative Numbers</a></div>
+        <div class="card-desc">This video focuses on the tricky cases where you have fractional exponents applied to negative bases. You'll learn when a negative base with a fractional exponent gives a real answer and how to compute it correctly without a calculator.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=cYZjBt8qVOI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#27</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid27" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid27)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Fractional Bases</text>
+<text x="145" y="46" font-size="11" fill="#3b82f6" font-family="serif" text-anchor="middle">(xᵃ)ᵇ = xᵃ·ᵇ</text>
+<!-- Main problem: [(16/81)^2]^(1/2) -->
+<!-- Outer left bracket — tall enough to wrap the fraction -->
+<text x="72" y="90" font-size="36" fill="#1a1208" font-family="serif" text-anchor="middle">[</text>
+<!-- Inner left paren -->
+<text x="88" y="90" font-size="30" fill="#1a1208" font-family="serif" text-anchor="middle">(</text>
+<!-- fraction 16/81 -->
+<text x="113" y="76" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">16</text>
+<line x1="96" y1="82" x2="130" y2="82" stroke="#1a1208" stroke-width="1.4"/>
+<text x="113" y="100" font-size="16" fill="#1a1208" font-family="serif" text-anchor="middle">81</text>
+<!-- Inner right paren + exponent 2 -->
+<text x="140" y="90" font-size="30" fill="#1a1208" font-family="serif" text-anchor="middle">)</text>
+<text x="155" y="72" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<!-- Outer right bracket + exponent 1/2 -->
+<text x="170" y="90" font-size="36" fill="#1a1208" font-family="serif" text-anchor="middle">]</text>
+<text x="188" y="72" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">½</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=6s_tr9KNkTA" target="_blank">Chapter 6 — Layered &amp; Fractional Exponents with Fractional Bases</a></div>
+        <div class="card-desc">This video handles the case where both the base and the exponent are fractions — like (4/9)^(3/2). You'll learn to simplify these step-by-step by taking the root of the fraction first, then raising to the power.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=6s_tr9KNkTA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#28</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid28" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid28)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Rewrite Using Fractional Exponents</text>
+<text x="145" y="58" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">⁴√x</text>
+<text x="145" y="72" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="92" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(⁷√12.5)²</text>
+<text x="145" y="106" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="126" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">⁵√A³</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=IL5H9ra38rs" target="_blank">Chapter 6 — Rewrite Using Fractional Exponents, Then Simplify</a></div>
+        <div class="card-desc">This video teaches you to convert radical expressions into fractional exponent form first, then use exponent rules to simplify. You'll be able to multiply and divide root expressions by converting them to a common exponent notation.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=IL5H9ra38rs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 7 -->
+<div class="chapter-group" id="ch7">
+  <div class="chapter-heading">
+    <h2>Chapter 7 — Imaginary Numbers</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">4 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#29</span><span class="card-topic-badge" style="color:#c77dff">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid29" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid29)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Imaginary Numbers</text>
+<text x="95" y="50" font-size="16" fill="#3b82f6" font-family="serif" text-anchor="middle">√−1 = i</text>
+<text x="210" y="50" font-size="16" fill="#3b82f6" font-family="serif" text-anchor="middle">i² = −1</text>
+<text x="100" y="90" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">√−19</text>
+<text x="155" y="90" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="210" y="90" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">√−64x⁴</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=5o_3UP73fQE" target="_blank">Chapter 7 — Simplifying with Imaginary Numbers</a></div>
+        <div class="card-desc">This video introduces imaginary numbers — what they are and why we use the letter i to represent √−1. You'll be able to simplify expressions like √−9 into 3i and understand where imaginary numbers come from.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=5o_3UP73fQE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#30</span><span class="card-topic-badge" style="color:#c77dff">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid30" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid30)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Add &amp; Subtract Imaginary</text>
+<text x="145" y="62" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">√−4 + √−100</text>
+<text x="145" y="78" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="100" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">2√−9 + √36</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=gOyHf5Ubg44" target="_blank">Chapter 7 — Adding and Subtracting with Imaginary Numbers</a></div>
+        <div class="card-desc">This video shows how to add and subtract complex numbers by combining real parts with real parts and imaginary parts with imaginary parts. You'll be able to add and subtract expressions like (3 + 2i) + (1 − 5i) with confidence.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=gOyHf5Ubg44" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#31</span><span class="card-topic-badge" style="color:#c77dff">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid31" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid31)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Powers of i — Cycle of 4</text>
+<text x="55" y="52" font-size="14" fill="#3b82f6" font-family="serif" text-anchor="middle">i¹ = i</text>
+<text x="145" y="52" font-size="14" fill="#3b82f6" font-family="serif" text-anchor="middle">i² = −1</text>
+<text x="55" y="76" font-size="14" fill="#3b82f6" font-family="serif" text-anchor="middle">i³ = −i</text>
+<text x="145" y="76" font-size="14" fill="#3b82f6" font-family="serif" text-anchor="middle">i⁴ = 1</text>
+<text x="145" y="112" font-size="22" fill="#1a1208" font-family="serif" text-anchor="middle">(i³)⁹</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=LZrXbKJGgjk" target="_blank">Chapter 7 — Simplifying Powers of Imaginary Numbers</a></div>
+        <div class="card-desc">This video reveals the repeating cycle of i¹, i², i³, i⁴ and how to use it to quickly simplify any high power of i. You'll be able to simplify expressions like i¹⁷ or i⁵⁰ in seconds by using the cycle of four.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=LZrXbKJGgjk" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#32</span><span class="card-topic-badge" style="color:#c77dff">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid32" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid32)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Multiply Imaginary</text>
+<text x="145" y="65" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">(i⁵)(−9i)</text>
+<text x="145" y="80" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="100" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">√−5 · √−6</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=TMsOXmabxxI" target="_blank">Chapter 7 — Multiplication with Imaginary Numbers</a></div>
+        <div class="card-desc">This video covers multiplying complex numbers using FOIL and the key rule that i² = −1. You'll be able to multiply complex numbers like (2 + 3i)(1 − 4i) and simplify the result into standard a + bi form.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=TMsOXmabxxI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 8 -->
+<div class="chapter-group" id="ch8">
+  <div class="chapter-heading">
+    <h2>Chapter 8 — Conjugates</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">2 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#33</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid33" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid33)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Conjugates</text>
+<text x="145" y="48" font-size="14" fill="#3b82f6" font-family="serif" text-anchor="middle">A + B  →  A − B</text>
+<text x="145" y="80" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(3+2i)(3−2i)</text>
+<text x="145" y="95" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="115" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(4−√5)(4+√5)</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=dR7O9JOaEXk" target="_blank">Chapter 8 — Finding &amp; Multiplying Conjugates</a></div>
+        <div class="card-desc">This video teaches what a conjugate is (flipping the sign in the middle of a binomial) and what happens when you multiply conjugate pairs together. You'll be able to find the conjugate of any binomial and use it to produce a difference of squares.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=dR7O9JOaEXk" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#34</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid34" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid34)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Simplify with Conjugates</text>
+<text x="145" y="42" font-size="11" fill="#3b82f6" font-family="serif" text-anchor="middle">multiply by conjugate of denominator</text>
+<!-- A/(4A+i) -->
+<text x="55" y="70" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">A</text>
+<line x1="25" y1="76" x2="85" y2="76" stroke="#1a1208" stroke-width="1.2"/>
+<text x="55" y="92" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">4A + i</text>
+<!-- or -->
+<text x="120" y="82" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<!-- 7i/(5-6i) -->
+<text x="175" y="70" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">7i</text>
+<line x1="148" y1="76" x2="202" y2="76" stroke="#1a1208" stroke-width="1.2"/>
+<text x="175" y="92" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">5 − 6i</text>
+<!-- or -->
+<text x="228" y="82" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<!-- x²/(x-√xy) -->
+<text x="268" y="70" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">x²</text>
+<line x1="238" y1="76" x2="282" y2="76" stroke="#1a1208" stroke-width="1.2"/>
+<text x="260" y="92" font-size="11" fill="#1a1208" font-family="serif" text-anchor="middle">x − √xy</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=u3ntPgV8A1s" target="_blank">Chapter 8 — Simplifying Fractional Expressions Using Conjugates</a></div>
+        <div class="card-desc">This video puts conjugates to work — using them to rationalize denominators that contain binomials with radicals or complex numbers. You'll be able to fully simplify complicated fractional expressions by multiplying by the conjugate of the denominator.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=u3ntPgV8A1s" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 9 -->
+<div class="chapter-group" id="ch9">
+  <div class="chapter-heading">
+    <h2>Chapter 9 — Cubing Binomials</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">1 video</span>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#35</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid35" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid35)"/>
+<text x="145" y="18" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">Cubing Binomials</text>
+<!-- Pascal's triangle rows in GREEN -->
+<text x="145" y="36" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">1</text>
+<text x="145" y="48" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">1   1</text>
+<text x="145" y="60" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">1   2   1</text>
+<text x="145" y="72" font-size="10" fill="#c9382a" font-family="serif" text-anchor="middle">1   3   3   1</text>
+<text x="145" y="95" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(2A − 2B)³</text>
+<text x="145" y="109" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="128" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">(3x − 2)³</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=cG72EwCkCKc" target="_blank">Chapter 9 — Cubing Binomials</a></div>
+        <div class="card-desc">This video teaches how to expand a binomial raised to the third power (like (x + 2)³) using the cube formula or repeated FOIL. You'll be able to expand any cubed binomial into a four-term polynomial without making sign errors.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=cG72EwCkCKc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 10 -->
+<div class="chapter-group" id="ch10">
+  <div class="chapter-heading">
+    <h2>Chapter 10 — Binomial Theorem</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">3 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#36</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid36" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid36)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Binomial Theorem</text>
+<text x="145" y="78" font-size="26" fill="#1a1208" font-family="serif" text-anchor="middle">(A + 7)⁶</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">expand using Pascal&#39;s triangle row</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=nzoNuJOnjQA" target="_blank">Chapter 10 — Expanding Binomials Using Binomial Theorem</a></div>
+        <div class="card-desc">This video introduces the Binomial Theorem and Pascal's Triangle as tools for expanding (a + b)ⁿ for any power n. You'll be able to expand expressions like (x + 2)⁵ completely and correctly using the theorem without multiplying by hand repeatedly.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=nzoNuJOnjQA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#37</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid37" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid37)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Binomial Theorem</text>
+<text x="145" y="78" font-size="26" fill="#1a1208" font-family="serif" text-anchor="middle">(2x − 2Y)⁴</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">watch signs on negative terms</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=g8Wj_AhcVg4" target="_blank">Chapter 10 — Expanding Binomials with Negatives and Coefficients</a></div>
+        <div class="card-desc">This video covers the harder binomial expansion problems where the terms have coefficients and negative signs — like (2x − 3)⁴. You'll learn to carefully track the signs and coefficients through each term of the expansion.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=g8Wj_AhcVg4" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#38</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid38" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid38)"/>
+<text x="145" y="26" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Find the n-th Term</text>
+<text x="145" y="60" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">What is the 5th term of</text>
+<text x="145" y="95" font-size="26" fill="#1a1208" font-family="serif" text-anchor="middle">(2x − 9)⁹</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Wt5sLKJL-hg" target="_blank">Chapter 10 — Finding the n-th Term When Expanding Binomials</a></div>
+        <div class="card-desc">This video teaches how to find any specific term in a binomial expansion without having to expand the entire thing. You'll be able to use the binomial term formula to jump directly to, say, the 4th or 7th term of a large expansion.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Wt5sLKJL-hg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 11 -->
+<div class="chapter-group" id="ch11">
+  <div class="chapter-heading">
+    <h2>Chapter 11 — Completing the Square</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">3 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#39</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid39" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid39)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Completing the Square</text>
+<text x="145" y="52" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">x² + 10x + ___</text>
+<text x="145" y="70" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="90" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">x² − 8x + ___</text>
+<text x="145" y="108" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="128" font-size="17" fill="#1a1208" font-family="serif" text-anchor="middle">x² + ___ + 16</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=MgjZr7HuoOE" target="_blank">Chapter 11 — Completing the Square</a></div>
+        <div class="card-desc">This video introduces the method of completing the square — a technique for rewriting a quadratic so you can solve it by taking a square root. You'll be able to solve quadratic equations using this method and understand why it works.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=MgjZr7HuoOE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#40</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid40" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid40)"/>
+<text x="145" y="26" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Complete the Square — Fractions</text>
+<text x="145" y="68" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x² + 3x + ___</text>
+<text x="145" y="84" font-size="10" fill="#2a6048" font-style="italic" font-family="serif" text-anchor="middle">or</text>
+<text x="145" y="108" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x² − ⅓x + ___</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=-ZjEdBPzCXA" target="_blank">Chapter 11 — Completing the Square with Fractions</a></div>
+        <div class="card-desc">This video handles the more challenging version of completing the square where the coefficients are fractions. You'll be able to apply the method even when the middle term has a fractional coefficient, keeping your fractions organized along the way.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=-ZjEdBPzCXA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#41</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid41" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid41)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Solve by Completing the Square</text>
+<!-- Hero equation -->
+<text x="145" y="62" font-size="22" fill="#1a1208" font-family="serif" text-anchor="middle">x² − 5x + 4 = 0</text>
+<!-- Divider -->
+<path d="M 50 72 Q 145 70 240 72" fill="none" stroke="#bbb" stroke-width=".5"/>
+<!-- Step 1: move constant -->
+<text x="145" y="100" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">x² − 5x = −4</text>
+<!-- Step 2: add blank to both sides -->
+<text x="145" y="130" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">x² − 5x + ___ = −4 + ___</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Bi82WkOySqo" target="_blank">Chapter 11 — Finding x by Completing the Square</a></div>
+        <div class="card-desc">This video focuses on using completing the square as a reliable method for finding the solutions of any quadratic, including those that don't factor neatly. You'll be able to solve any quadratic equation this way and get exact answers even when the solutions involve radicals.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Bi82WkOySqo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 12 -->
+<div class="chapter-group" id="ch12">
+  <div class="chapter-heading">
+    <h2>Chapter 12 — Quadratic Formula</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">3 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#42</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid42" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid42)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Quadratic Formula</text>
+<text x="145" y="58" font-size="22" fill="#1a1208" font-family="serif" text-anchor="middle">x² − 6x + 2 = 0</text>
+<!-- formula in green -->
+<text x="145" y="98" font-size="14" fill="#2a6048" font-family="serif" text-anchor="middle">−b ± √(b²−4ac)</text>
+<line x1="85" y1="106" x2="205" y2="106" stroke="#2a6048" stroke-width="1.2"/>
+<text x="145" y="124" font-size="14" fill="#2a6048" font-family="serif" text-anchor="middle">2a</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=vZVkRbY320Q" target="_blank">Chapter 12 — Quadratic Formula</a></div>
+        <div class="card-desc">This video introduces the quadratic formula — the universal tool for solving any quadratic equation, no matter how messy. After watching, you'll be able to plug values into x = (−b ± √(b²−4ac)) / 2a and find both solutions.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=vZVkRbY320Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#43</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid43" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid43)"/>
+<text x="145" y="24" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Quadratic — Two Terms</text>
+<text x="145" y="58" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">3x² = −5x</text>
+<text x="145" y="82" font-size="14" fill="#888" font-family="serif" text-anchor="middle">↓</text>
+<text x="145" y="100" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">3x² + 5x = 0</text>
+<text x="145" y="135" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">rearrange first, then apply formula</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=uw2ZvTwGmuI" target="_blank">Chapter 12 — Quadratic Formula with Only Two Terms</a></div>
+        <div class="card-desc">This video covers the special case where the quadratic has only two terms (the b term is missing), which simplifies the formula significantly. You'll be able to recognize and quickly solve these "incomplete" quadratics using the formula or direct square root method.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=uw2ZvTwGmuI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#44</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid44" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid44)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Quadratic Formula — Fractions</text>
+<!-- 2/3 fraction -->
+<text x="55" y="64" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">2</text>
+<line x1="45" y1="69" x2="65" y2="69" stroke="#1a1208" stroke-width="1.2"/>
+<text x="55" y="86" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">3</text>
+<!-- x² -->
+<text x="82" y="78" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x²</text>
+<!-- + -->
+<text x="108" y="78" font-size="16" fill="#888" font-family="serif" text-anchor="middle">+</text>
+<!-- 5/6 fraction -->
+<text x="135" y="64" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">5</text>
+<line x1="125" y1="69" x2="145" y2="69" stroke="#1a1208" stroke-width="1.2"/>
+<text x="135" y="86" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">6</text>
+<!-- x -->
+<text x="160" y="78" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">x</text>
+<!-- = 0 -->
+<text x="195" y="78" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">= 0</text>
+<text x="145" y="120" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">clear fractions or plug directly</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=jnDIDbv4jt8" target="_blank">Chapter 12 — Quadratic Formula with Fractions</a></div>
+        <div class="card-desc">This video shows how to apply the quadratic formula when the coefficients a, b, and c are fractions, which requires extra care with the arithmetic. After watching, you'll be able to solve quadratics with fractional coefficients and simplify the resulting answers.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=jnDIDbv4jt8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 13 -->
+<div class="chapter-group" id="ch13">
+  <div class="chapter-heading">
+    <h2>Chapter 13 — Discriminants</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">1 video</span>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#45</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid45" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid45)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Discriminants</text>
+<text x="145" y="68" font-size="26" fill="#1a1208" font-family="serif" text-anchor="middle">D = b² − 4ac</text>
+<text x="80" y="105" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">D &gt; 0 → 2 real</text>
+<text x="210" y="105" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">D = 0 → 1 real</text>
+<text x="145" y="125" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">D &lt; 0 → 2 imaginary</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=b6kteaJfejo" target="_blank">Chapter 13 — Discriminants</a></div>
+        <div class="card-desc">This video explains the discriminant (b² − 4ac) — the part under the square root in the quadratic formula — and what it tells you about a quadratic's solutions before you even solve it. You'll be able to look at any quadratic and immediately know whether it has two real solutions, one, or none (complex).</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=b6kteaJfejo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 14 -->
+<div class="chapter-group" id="ch14">
+  <div class="chapter-heading">
+    <h2>Chapter 14 — Percent Composition</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">2 videos</span>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#46</span><span class="card-topic-badge" style="color:#48cae4">Applied</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid46" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid46)"/>
+<text x="145" y="28" font-size="12" fill="#2a6048" font-family="serif" text-anchor="middle">Percentage of Element</text>
+<text x="145" y="60" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">Find the % of silicon</text>
+<text x="145" y="85" font-size="14" fill="#1a1208" font-family="serif" text-anchor="middle">in</text>
+<text x="145" y="110" font-size="26" fill="#1a1208" font-family="serif" text-anchor="middle">SiO₂</text>
+<text x="145" y="145" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">atomic mass method</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Lt6-JJ6F_GM" target="_blank">Chapter 14 — Find the Percentage of an Atomic Element in a Compound</a></div>
+        <div class="card-desc">This video teaches how to calculate what percentage of a chemical compound's mass comes from a specific element, using molar masses. You'll be able to find the percent composition of any element in a compound like H₂O or NaCl by dividing its mass contribution by the total molar mass.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Lt6-JJ6F_GM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#47</span><span class="card-topic-badge" style="color:#48cae4">Applied</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid47" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid47)"/>
+<text x="145" y="22" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">Percentage Word Problem</text>
+<text x="145" y="50" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">Book was $45.00</text>
+<text x="145" y="72" font-size="13" fill="#1a1208" font-family="serif" text-anchor="middle">Bought for $33.75</text>
+<text x="145" y="105" font-size="20" fill="#1a1208" font-family="serif" text-anchor="middle">What % saved?</text>
+<text x="145" y="140" font-size="11" fill="#2a6048" font-family="serif" text-anchor="middle">difference / original × 100</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=yI3_vbsy35Y" target="_blank">Chapter 14 — Basic Problem Types</a></div>
+        <div class="card-desc">This video surveys all the basic percent composition problem types from Chapter 14 so you know what to expect. After watching, you'll feel ready to tackle any variation of these problems on an assignment or test.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=yI3_vbsy35Y" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHAPTER 15 -->
+<div class="chapter-group" id="ch15">
+  <div class="chapter-heading">
+    <h2>Chapter 15 — Solving for a Variable</h2>
+    <div class="ch-line"></div>
+    <span class="ch-count">1 video</span>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="card-visual"><span class="card-num">#48</span><span class="card-topic-badge" style="color:#c3e88d">Algebra</span>
+        <svg viewBox="0 0 290 158" xmlns="http://www.w3.org/2000/svg">
+<rect width="290" height="158" fill="#faf8f2"/>
+<defs><pattern id="grid48" width="14.5" height="14.5" patternUnits="userSpaceOnUse"><path d="M 14.5 0 L 0 0 0 14.5" fill="none" stroke="#c8d8e8" stroke-width=".4" opacity=".5"/></pattern></defs>
+<rect width="290" height="158" fill="url(#grid48)"/>
+<text x="145" y="20" font-size="10" fill="#2a6048" font-family="serif" text-anchor="middle">Solve for a Variable</text>
+<text x="145" y="42" font-size="14" fill="#c9382a" font-family="serif" text-anchor="middle">Solve for B₀:</text>
+<!-- B₁/A₁ -->
+<text x="72" y="68" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">B₁</text>
+<line x1="56" y1="74" x2="88" y2="74" stroke="#1a1208" stroke-width="1.3"/>
+<text x="72" y="92" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">A₁</text>
+<!-- = -->
+<text x="115" y="80" font-size="20" fill="#888" font-family="serif" text-anchor="middle">=</text>
+<!-- A/B₂ -->
+<text x="158" y="68" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">A</text>
+<line x1="142" y1="74" x2="174" y2="74" stroke="#1a1208" stroke-width="1.3"/>
+<text x="158" y="92" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">B₂</text>
+<!-- + B₀ -->
+<text x="202" y="80" font-size="18" fill="#1a1208" font-family="serif" text-anchor="middle">+ B₀</text>
+</svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title"><a href="https://www.youtube.com/watch?v=Iuajfh_gJh8" target="_blank">Chapter 15 — Solving for a Variable</a></div>
+        <div class="card-desc">This video teaches how to rearrange a formula or equation to isolate a specific variable — a critical skill in both math and science. After watching, you'll be able to take any multi-variable equation and solve it for whichever variable you need.</div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=Iuajfh_gJh8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch Video</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<div class="footer">
+  Math Tutoring Playlist &nbsp;·&nbsp; <strong>48 videos</strong> &nbsp;·&nbsp; Chapters 1–15 &nbsp;·&nbsp; Click any title to watch on YouTube
+</div>
+
+<script>
+function filterChapter(id, btn) {
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const groups = document.querySelectorAll('.chapter-group');
+  if (id === 'all') {
+    groups.forEach(g => g.classList.remove('hidden'));
+  } else {
+    groups.forEach(g => {
+      if (g.id === id) g.classList.remove('hidden');
+      else g.classList.add('hidden');
+    });
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
