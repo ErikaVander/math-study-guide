@@ -3,45 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Math Tutoring — Video Study Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1208;
-    --cream: #faf6ef;
-    --amber: #c97d2a;
-    --amber-light: #f0d4a0;
-    --amber-pale: #fdf3e0;
+    --ink: #1e1e1e;
+    --cream: #f8f9fa;
+    --amber: #4a6cf7;
+    --amber-light: #dbe4ff;
+    --amber-pale: #eef2ff;
     --green: #2a6048;
-    --border: #d4c4a0;
-    --muted: #7a6a50;
-    --card-shadow: #d4c4a0;
+    --border: #dee2e6;
+    --muted: #6c757d;
+    --card-shadow: #dee2e6;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
 
   /* HEADER */
   .header {
-    background: var(--ink);
-    color: var(--cream);
+    background: #fff;
+    color: var(--ink);
     padding: 28px 40px 24px;
-    border-bottom: 4px solid var(--amber);
+    border-bottom: 1px solid var(--border);
   }
-  .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-start; gap: 18px; }
-  .header-icon { font-size: 2.2rem; line-height: 1; margin-top: 2px; }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
+  .header-logo { float: left; margin-right: 20px; }
+  .header-logo svg { display: block; width: 80px; height: 80px; }
   .header h1 { font-family: 'Libre Baskerville', serif; font-size: 1.55rem; font-weight: 700; line-height: 1.2; }
-  .header p { font-size: 0.82rem; color: #b0a898; margin-top: 5px; font-style: italic; }
+  .header p { font-size: 0.82rem; color: var(--muted); margin-top: 5px; font-style: italic; }
   .header-meta { margin-top: 3px; display: flex; gap: 18px; }
-  .header-meta span { font-size: 0.75rem; color: #8a7a68; font-family: 'JetBrains Mono', monospace; }
+  .header-meta span { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
   .header-meta span strong { color: var(--amber); }
 
   /* CHAPTER FILTERS */
-  .filter-bar { background: #fff; border-bottom: 1.5px solid var(--border); padding: 14px 40px; position: sticky; top: 0; z-index: 100; }
+  .filter-bar { background: #fff; border-bottom: 1px solid var(--border); padding: 0; position: sticky; top: 0; z-index: 100; }
+  .filter-toggle { display: none; width: 100%; padding: 12px 16px; background: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 700; color: var(--muted); cursor: pointer; text-align: left; }
+  .filter-toggle::after { content: '▾'; float: right; transition: transform .2s; }
+  .filter-toggle.open::after { transform: rotate(180deg); }
+  .filter-wrap { padding: 14px 40px; }
   .filter-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .filter-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); white-space: nowrap; }
-  .filter-btn { padding: 5px 13px; border: 1.5px solid var(--border); border-radius: 99px; background: var(--cream); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .filter-btn { padding: 5px 13px; border: 1px solid var(--border); border-radius: 99px; background: #fff; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all .15s; white-space: nowrap; }
   .filter-btn:hover { border-color: var(--amber); color: var(--amber); }
-  .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+  .filter-btn.active { background: var(--amber); border-color: var(--amber); color: #fff; }
 
   /* MAIN CONTENT */
   .content { max-width: 1200px; margin: 0 auto; padding: 36px 40px 64px; }
@@ -56,8 +63,8 @@
 
   /* VIDEO CARDS */
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; }
-  .video-card { background: #fff; border: 1.5px solid var(--border); border-radius: 4px; overflow: hidden; box-shadow: 3px 3px 0 var(--card-shadow); display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s; }
-  .video-card:hover { box-shadow: 5px 5px 0 var(--amber-light); transform: translate(-1px, -1px); }
+  .video-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s; }
+  .video-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); transform: translateY(-2px); }
   .card-visual { height: 158px; position: relative; overflow: hidden; flex-shrink: 0; }
   .card-visual svg { width: 100%; height: 100%; display: block; }
   .card-num { position: absolute; top: 10px; left: 12px; font-family: 'Libre Baskerville', serif; font-size: .72rem; color: #ffffff40; font-style: italic; pointer-events: none; z-index: 2; }
@@ -66,18 +73,25 @@
   .card-title a { font-family: 'Libre Baskerville', serif; font-size: .92rem; font-weight: 700; color: var(--ink); text-decoration: none; line-height: 1.35; display: block; }
   .card-title a:hover { color: var(--amber); text-decoration: underline; }
   .card-desc { font-size: .79rem; color: var(--muted); line-height: 1.65; flex: 1; }
-  .watch-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; font-weight: 700; color: var(--green); text-decoration: none; letter-spacing: .02em; margin-top: 2px; }
-  .watch-link:hover { color: var(--amber); }
+  .watch-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; font-weight: 700; color: var(--amber); text-decoration: none; letter-spacing: .02em; margin-top: 2px; }
+  .watch-link:hover { color: #3451b2; }
   .watch-link svg { width: 13px; height: 13px; }
 
   /* FOOTER */
-  .footer { background: var(--ink); color: #7a6a50; text-align: center; padding: 22px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; border-top: 3px solid var(--amber); }
+  .footer { background: #fff; color: var(--muted); text-align: center; padding: 22px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; border-top: 1px solid var(--border); }
   .footer strong { color: var(--amber); }
+
 
   @media (max-width: 640px) {
     .header { padding: 20px; }
-    .filter-bar { padding: 12px 16px; }
+    .header-logo { float: left; margin-right: 12px; margin-bottom: 6px; }
+    .header-logo svg { width: 40px; height: 40px; }
+    .header-text > .header-meta,
+    .header-text > p { clear: left; }
     .content { padding: 24px 16px 48px; }
+    .filter-toggle { display: block; }
+    .filter-wrap { padding: 10px 16px; display: none; }
+    .filter-wrap.open { display: block; }
   }
 </style>
 </head>
@@ -85,8 +99,13 @@
 
 <div class="header">
   <div class="header-inner">
-    <div class="header-icon">📐</div>
-    <div>
+    <div class="header-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <text x="10" y="23" font-size="18" font-family="serif" fill="#1e1e1e">x</text>
+        <text x="20" y="14" font-size="11" font-family="serif" font-weight="bold" fill="#1e1e1e">2</text>
+      </svg>
+    </div>
+    <div class="header-text">
       <h1>Math Tutoring — Video Study Guide</h1>
       <div class="header-meta">
         <span><strong>48</strong> videos</span>
@@ -99,6 +118,8 @@
 </div>
 
 <div class="filter-bar">
+  <button class="filter-toggle" id="filterToggle" onclick="this.classList.toggle('open'); document.getElementById('filterWrap').classList.toggle('open');">Jump to Chapter</button>
+  <div class="filter-wrap" id="filterWrap">
   <div class="filter-inner">
     <span class="filter-label">Jump to:</span>
     <button class="filter-btn active" onclick="filterChapter('all', this)">All</button>
@@ -118,6 +139,7 @@
     <button class="filter-btn" onclick="filterChapter('ch14', this)">Ch. 14</button>
     <button class="filter-btn" onclick="filterChapter('ch15', this)">Ch. 15</button>
     <button class="filter-btn" onclick="filterChapter('misc', this)">Other</button>
+  </div>
   </div>
 </div>
 
@@ -1524,6 +1546,7 @@ function filterChapter(id, btn) {
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 </script>
 </body>
 </html>
