@@ -29,9 +29,10 @@
     padding: 28px 40px 24px;
     border-bottom: 1px solid var(--border);
   }
-  .header-inner { max-width: 1200px; margin: 0 auto; }
-  .header-logo { float: left; margin-right: 20px; }
+  .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { flex-shrink: 0; }
   .header-logo svg { display: block; width: 80px; height: 80px; }
+  .header-text { flex: 1; }
   .header h1 { font-family: 'Libre Baskerville', serif; font-size: 1.55rem; font-weight: 700; line-height: 1.2; }
   .header p { font-size: 0.82rem; color: var(--muted); margin-top: 5px; font-style: italic; }
   .header-meta { margin-top: 3px; display: flex; gap: 18px; }
@@ -84,10 +85,8 @@
 
   @media (max-width: 640px) {
     .header { padding: 20px; }
-    .header-logo { float: left; margin-right: 12px; margin-bottom: 6px; }
-    .header-logo svg { width: 40px; height: 40px; }
-    .header-text > .header-meta,
-    .header-text > p { clear: left; }
+    .header-inner { gap: 14px; align-items: flex-start; }
+    .header-logo svg { width: 46px; height: 46px; }
     .content { padding: 24px 16px 48px; }
     .filter-toggle { display: block; }
     .filter-wrap { padding: 10px 16px; display: none; }
