@@ -29,10 +29,7 @@
     padding: 28px 40px 24px;
     border-bottom: 1px solid var(--border);
   }
-  .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
-  .header-logo { flex-shrink: 0; }
-  .header-logo svg { display: block; width: 80px; height: 80px; }
-  .header-text { flex: 1; }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
   .header h1 { font-family: 'Libre Baskerville', serif; font-size: 1.55rem; font-weight: 700; line-height: 1.2; }
   .header p { font-size: 0.82rem; color: var(--muted); margin-top: 5px; font-style: italic; }
   .header-meta { margin-top: 3px; display: flex; gap: 18px; }
@@ -85,8 +82,6 @@
 
   @media (max-width: 640px) {
     .header { padding: 20px; }
-    .header-inner { gap: 14px; align-items: flex-start; }
-    .header-logo svg { width: 46px; height: 46px; }
     .content { padding: 24px 16px 48px; }
     .filter-toggle { display: block; }
     .filter-wrap { padding: 10px 16px; display: none; }
@@ -98,13 +93,13 @@
 
 <div class="header">
   <div class="header-inner">
-    <div class="header-logo">
+    <!-- <div class="header-logo">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
         <text x="10" y="23" font-size="18" font-family="serif" fill="#1e1e1e">x</text>
         <text x="20" y="14" font-size="11" font-family="serif" font-weight="bold" fill="#1e1e1e">2</text>
       </svg>
-    </div>
-    <div class="header-text">
+    </div> -->
+    <div>
       <h1>Math Tutoring — Video Study Guide</h1>
       <div class="header-meta">
         <span><strong>48</strong> videos</span>
