@@ -1,0 +1,23 @@
+{
+  "name": "math-study-guide-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErikaVander/math-study-guide.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErikaVander/math-study-guide/issues"
+  },
+  "homepage": "https://github.com/ErikaVander/math-study-guide#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.82.0"
+  }
+}
