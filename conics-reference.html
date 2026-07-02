@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conic Sections Quick Reference</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #fff;
+    color: #0f172a;
+    padding: 28px;
+  }
+  .sheet { max-width: 1100px; margin: 0 auto; }
+  header { margin-bottom: 24px; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #475569; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .card {
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .shape { width: 64px; height: 64px; margin-bottom: 12px; }
+  .label {
+    font-size: 11px; font-weight: 600; color: #475569;
+    text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px;
+  }
+  .formula {
+    background: #f8fafc; border-radius: 6px; padding: 8px 10px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px; color: #0f172a; margin-bottom: 12px;
+  }
+  .steps p { font-size: 12px; color: #334155; line-height: 1.45; margin-bottom: 4px; }
+  .video {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .video a {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+  .video a:hover { text-decoration: underline; }
+  .video .play { width: 15px; height: 15px; flex-shrink: 0; }
+  .video .pending { font-size: 12px; color: #94a3b8; font-style: italic; }
+  @media print {
+    body { padding: 0; }
+    .card { break-inside: avoid; }
+  }
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <h1>Conic Sections Quick Reference</h1>
+    <p class="subtitle">Algebra 2 — Identify: Line, Circle, Ellipse, Parabola, or Hyperbola</p>
+  </header>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const conics = [
+  {
+    name: "Line",
+    color: "#10b981",
+    equation: "y = mx + b",
+    video: "https://www.youtube.com/watch?v=HWCHXKQMJrI",
+    steps: [
+      "1) Get y by itself on one side of the equal sign",
+      "2) Check that neither x nor y are squared"
+    ],
+    shape: '<line x1="10" y1="80" x2="90" y2="20" stroke="currentColor" stroke-width="2" />'
+  },
+  {
+    name: "Circle",
+    color: "#3b82f6",
+    equation: "x² + y² = r²",
+    video: "https://www.youtube.com/watch?v=u_39J-syjB0",
+    steps: [
+      "1) Move x² and y² to the left side of the equal sign",
+      "2) Check that both are positive",
+      "3) Check that the coefficients are the SAME"
+    ],
+    shape: '<circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2" />'
+  },
+  {
+    name: "Ellipse",
+    color: "#06b6d4",
+    equation: "x² + y² = (constant)",
+    video: "https://www.youtube.com/watch?v=Rl1mE9b25_I",
+    steps: [
+      "1) Move x² and y² to the left side of the equal sign",
+      "2) Check that both are positive",
+      "3) Check that the coefficients are DIFFERENT"
+    ],
+    shape: '<ellipse cx="50" cy="50" rx="40" ry="25" fill="none" stroke="currentColor" stroke-width="2" />'
+  },
+  {
+    name: "Parabola",
+    color: "#a855f7",
+    equation: "y = ax² + bx + c",
+    video: "https://www.youtube.com/watch?v=6NGmWKr8IIE",
+    steps: [
+      "1) Get y by itself on one side of the equal sign",
+      "2) Check that ONLY ONE variable (x or y) is squared",
+      "3) The other variable should NOT be squared"
+    ],
+    shape: '<path d="M 10 80 Q 50 20 90 80" fill="none" stroke="currentColor" stroke-width="2" />'
+  },
+  {
+    name: "Hyperbola",
+    color: "#f97316",
+    equation: "x² − y² = (constant)",
+    video: "https://www.youtube.com/watch?v=m2caeBkQXGg",
+    steps: [
+      "1) Move both x² and y² to the left side",
+      "2) Check that they have OPPOSITE signs",
+      "3) Solve for the positive variable squared"
+    ],
+    shape: '<path d="M 28 15 Q 45 50 28 85" fill="none" stroke="currentColor" stroke-width="2" /><path d="M 72 15 Q 55 50 72 85" fill="none" stroke="currentColor" stroke-width="2" />'
+  },
+  {
+    name: "Hyperbola (Reciprocal)",
+    color: "#ec4899",
+    equation: "y = k/x  or  xy = k",
+    video: "https://www.youtube.com/watch?v=KDgEjjzcpCI",
+    steps: [
+      "1) Solve for y and get it by itself",
+      "2) Check if it's in the form y = (constant)/x",
+      "3) Use chart method to find points"
+    ],
+    shape: '<line x1="50" y1="6" x2="50" y2="94" stroke="currentColor" stroke-width="0.5" opacity="0.25" stroke-dasharray="3" /><line x1="6" y1="50" x2="94" y2="50" stroke="currentColor" stroke-width="0.5" opacity="0.25" stroke-dasharray="3" /><path d="M 54 12 C 56 30, 62 42, 90 46" fill="none" stroke="currentColor" stroke-width="2" /><path d="M 46 88 C 44 70, 38 58, 10 54" fill="none" stroke="currentColor" stroke-width="2" />'
+  }
+];
+
+const grid = document.getElementById("grid");
+conics.forEach(c => {
+  const videoBlock = c.video
+    ? `<a href="${c.video}" target="_blank" rel="noopener noreferrer" style="color:${c.color}">
+         <svg class="play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+         Watch graphing video
+       </a>`
+    : `<span class="pending">Video coming soon</span>`;
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.borderColor = c.color;
+  card.innerHTML = `
+    <h2 style="color:${c.color}">${c.name}</h2>
+    <div class="shape" style="color:${c.color}">
+      <svg viewBox="0 0 100 100" width="100%" height="100%">${c.shape}</svg>
+    </div>
+    <div class="label">Form</div>
+    <div class="formula">${c.equation}</div>
+    <div class="label">How to Identify</div>
+    <div class="steps">${c.steps.map(s => `<p>${s}</p>`).join("")}</div>
+    <div class="video">${videoBlock}</div>
+  `;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
